@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
-group 'il.co.galex'
-version '1.0.0'
+
+def groupMode = 'il.co.galex'
+def versioning = '1.0.1'
 
 android {
     compileSdkVersion 25
@@ -12,7 +13,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName version
+        versionName versioning
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -51,9 +52,9 @@ task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
 publishing {
     publications {
         dll(MavenPublication) {
-            groupId 'il.co.galex'
+            groupId groupMode
             artifactId 'double-loading-loaders'
-            version '1.0.0'
+            version versioning
             artifact(sourceJar)
             artifact(androidJavadocsJar)
             artifact("$buildDir/outputs/aar/library-release.aar")
@@ -71,10 +72,10 @@ bintray {
         vcsUrl = 'https://github.com/galex/double-loading-loaders.git'
 
         version {
-            name = version
+            name = versioning
             desc = 'Load cache and network data in a beautiful way'
             released = new Date()
-            vcsTag = version
+            vcsTag = versioning
             publications = ['dll']
         }
     }

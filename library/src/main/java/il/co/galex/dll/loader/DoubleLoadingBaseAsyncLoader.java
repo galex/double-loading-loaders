@@ -30,7 +30,7 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
 
     private static final boolean DEBUG = true;
 
-    private ExecutorService executorService;
+    private static ExecutorService executorService;
     private static Handler mainHandler;
 
     private static int DELIVER_DATA_MSG = 1;
