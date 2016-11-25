@@ -8,6 +8,7 @@ import android.content.Context;
  * and restartLoader will only call loadNetworkInBackground().
  *
  */
+@SuppressWarnings("unused")
 public abstract class DoubleLoadingAsyncLoader<T> extends DoubleLoadingBaseAsyncLoader<T> {
 
     private T mResult;

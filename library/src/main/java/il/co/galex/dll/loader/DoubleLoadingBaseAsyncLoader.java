@@ -17,10 +17,13 @@ import java.util.concurrent.Future;
 import il.co.galex.dll.model.LoadState;
 
 /**
+ * Loader that will handle two consecutive background loading for cache and network, where the background
+ * cache happens once then the background network, and on each restart of the loader only the background network will be called
  *
  * @author Alexandre Gherschon
  */
 
+@SuppressWarnings("unused")
 public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implements DoubleLoading {
 
     private static final String TAG = DoubleLoadingBaseAsyncLoader.class.getSimpleName();
