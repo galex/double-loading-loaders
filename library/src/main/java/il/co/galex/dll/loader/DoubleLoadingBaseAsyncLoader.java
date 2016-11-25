@@ -28,7 +28,7 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
 
     private static final String TAG = DoubleLoadingBaseAsyncLoader.class.getSimpleName();
 
-    private static final boolean DEBUG = true;
+    private static boolean debug;
 
     private static ExecutorService executorService;
     private static Handler mainHandler;
@@ -63,26 +63,26 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
     @Override
     synchronized protected void onForceLoad() {
 
-        if (DEBUG) Log.d(TAG, "onForceLoad() called");
+        if (debug) Log.d(TAG, "onForceLoad() called");
 
         if (loadState == null) {
 
-            if (DEBUG) Log.d(TAG, "onForceLoad() submitted cache runnable");
+            if (debug) Log.d(TAG, "onForceLoad() submitted cache runnable");
             cacheRunnable = executorService.submit(new Runnable() {
                 @Override
                 public void run() {
 
-                    if (DEBUG) Log.d(TAG, "onForceLoad() running loadCacheInBackground on Thread " + Thread.currentThread().getName());
+                    if (debug) Log.d(TAG, "onForceLoad() running loadCacheInBackground on Thread " + Thread.currentThread().getName());
                     mainHandler.sendMessage(createMessage(loadCacheInBackground()));
                     loadState = LoadState.CACHE_LOADED;
                 }
             });
 
-            if (DEBUG) Log.d(TAG, "onForceLoad() onForceLoad() submitted network runnable");
+            if (debug) Log.d(TAG, "onForceLoad() onForceLoad() submitted network runnable");
             networkRunnable = executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    if (DEBUG) Log.d(TAG, "onForceLoad() running loadNetworkInBackground on Thread " + Thread.currentThread().getName());
+                    if (debug) Log.d(TAG, "onForceLoad() running loadNetworkInBackground on Thread " + Thread.currentThread().getName());
                     mainHandler.sendMessage(createMessage(loadNetworkInBackground()));
                     loadState = LoadState.NETWORK_LOADED;
                 }
@@ -90,11 +90,11 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
 
         } else if (loadState == LoadState.NETWORK_LOADED || loadState == LoadState.NETWORK_RELOADED) {
 
-            if (DEBUG) Log.d(TAG, "onForceLoad() onForceLoad() re-submitted network runnable");
+            if (debug) Log.d(TAG, "onForceLoad() onForceLoad() re-submitted network runnable");
             networkRunnable = executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    if (DEBUG) Log.d(TAG, "onForceLoad() re-running loadNetworkInBackground on Thread " + Thread.currentThread().getName());
+                    if (debug) Log.d(TAG, "onForceLoad() re-running loadNetworkInBackground on Thread " + Thread.currentThread().getName());
                     mainHandler.sendMessage(createMessage(loadNetworkInBackground()));
                     loadState = LoadState.NETWORK_RELOADED;
                 }
@@ -105,7 +105,7 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
     @Override
     protected boolean onCancelLoad() {
 
-        if (DEBUG) Log.d(TAG, "onCancelLoad() called");
+        if (debug) Log.d(TAG, "onCancelLoad() called");
 
         boolean cancelled = true;
         if (cacheRunnable != null) cancelled = cacheRunnable.cancel(true);
@@ -125,5 +125,9 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
     @Override
     public LoadState getLoadState() {
         return loadState;
+    }
+
+    public static void setDebug(boolean debug) {
+        DoubleLoadingBaseAsyncLoader.debug = debug;
     }
 }
