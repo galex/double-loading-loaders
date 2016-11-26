@@ -28,14 +28,12 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
 
     private static final String TAG = DoubleLoadingBaseAsyncLoader.class.getSimpleName();
 
-    private static boolean debug;
-
     private static ExecutorService executorService;
     private static Handler mainHandler;
-
     private static int DELIVER_DATA_MSG = 1;
-    private static LoadState loadState;
+    private static boolean debug;
 
+    private LoadState loadState;
     private Future<?> cacheRunnable;
     private Future<?> networkRunnable;
 
