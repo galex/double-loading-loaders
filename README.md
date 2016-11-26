@@ -25,7 +25,7 @@ dependencies {
 
 ## Example
 
-Extends the class **DoubleLoadingAsyncLoader<T>** to implement the double loading flow
+Extend the class **DoubleLoadingAsyncLoader<T>** to implement the double loading flow
 
 ```java
 public class ChatLoader extends DoubleLoadingAsyncLoader<List<Chat>> {
@@ -52,10 +52,10 @@ public class ChatLoader extends DoubleLoadingAsyncLoader<List<Chat>> {
 ```
 
 
-in OnLoadFinished(), to determine in what step of the flow we are, use **DoubleLoaderUtils.getLoadState(loader)**
+in **onLoadFinished()**, to determine in what step of the flow we are, use **DoubleLoaderUtils.getLoadState(loader)**
 ```java
  @Override
-    public void onLoadFinished(Loader<List<Comment>> loader, List<Comment> data) {
+    public void onLoadFinished(Loader<List<Comment>> loader, List<Chat> data) {
 
         final LoadState loadState = DoubleLoaderUtils.getLoadState(loader);
         android.util.Log.d(TAG, "onLoadFinished() called with: load state = " + loadState);
