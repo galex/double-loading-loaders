@@ -7,7 +7,7 @@ Loader to implement the following flow:
 - Load in the background the data via a network request, update the cache and represent the data
 - ForceLoad() on the loader to restart the flow from the network request only
 - Determine on onLoadFinished() in which Load State we are
-![alt text](https://github.com/galex/double-loading-loaders/raw/master/double-loading-loaders-flow.png "Double Loading Loaders Flow")
+![alt text](https://github.com/galex/double-loading-loaders/raw/master/double-loading-loaders.png "Double Loading Loaders Flow")
 ## Usage
 In your app module build.gradle add the dependency, published in jCenter:
 
