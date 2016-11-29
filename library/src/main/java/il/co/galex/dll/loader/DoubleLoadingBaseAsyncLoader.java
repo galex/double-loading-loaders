@@ -61,7 +61,7 @@ public abstract class DoubleLoadingBaseAsyncLoader<D> extends Loader<D> implemen
     @Override
     synchronized protected void onForceLoad() {
 
-        if (debug) Log.d(TAG, "onForceLoad() called");
+        if (debug) Log.d(TAG, "onForceLoad() called, current loadState = " + loadState);
 
         if (loadState == null) {
 

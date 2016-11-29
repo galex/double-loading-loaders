@@ -4,7 +4,7 @@ apply plugin: 'maven-publish'
 
 
 def groupMode = 'il.co.galex'
-def versioning = '1.0.4'
+def versioning = '1.1.0'
 
 android {
     compileSdkVersion 25

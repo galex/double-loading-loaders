@@ -1,5 +1,6 @@
 package il.co.galex.dll.util;
 
+import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 
 import il.co.galex.dll.loader.DoubleLoading;
@@ -12,6 +13,7 @@ import il.co.galex.dll.model.LoadState;
 
 public class DoubleLoaderUtils {
 
+    @Nullable
     public static LoadState getLoadState(Loader loader){
 
         if (loader instanceof DoubleLoading){
@@ -19,5 +21,10 @@ public class DoubleLoaderUtils {
             return doubleLoading.getLoadState();
         }
         return null;
+    }
+
+    public static void restartNetwork(Loader loader) {
+
+        loader.forceLoad();
     }
 }

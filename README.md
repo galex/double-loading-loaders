@@ -1,11 +1,11 @@
-# Double Loading Loaders (1.0.4)
+# Double Loading Loaders (1.1.0)
 ## Introduction
 
 Loader to implement the following flow:
 
 - Load in the background the cache and present the data
 - Load in the background the data via a network request, update the cache and represent the data
-- Restart the loader to restart the flow from the network request only
+- ForceLoad() on the loader to restart the flow from the network request only
 - Determine on onLoadFinished() in which Load State we are
 ![alt text](https://github.com/galex/double-loading-loaders/raw/master/double-loading-loaders-flow.png "Double Loading Loaders Flow")
 ## Usage
@@ -17,7 +17,7 @@ repositories {
 }
 dependencies {
     (...)
-    compile 'il.co.galex:double-loading-loaders:1.0.4'
+    compile 'il.co.galex:double-loading-loaders:1.1.0'
 }
 ```
 
@@ -43,8 +43,8 @@ public class ChatLoader extends DoubleLoadingAsyncLoader<List<Chat>> {
 
     @Override
     public List<Chat> loadNetworkInBackground() {
-        chatDao.insertOrUpdate(ApiHelper.getUserChats(uuid));
-        return chatDao.findAll();
+        chatDao.insertOrUpdate(ApiHelper.getUserChats(uuid)); // API call + Update of Database
+        return chatDao.findAll(); // reload from database as the data is merged by the previous line
     }
 }
 ```
@@ -62,7 +62,6 @@ in **onLoadFinished()**, to determine in what step of the flow we are, use **Dou
         }
 
         // TODO set data in your adapter
-        (...)
     }
 ```
 
