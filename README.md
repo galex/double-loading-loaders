@@ -9,6 +9,7 @@ Loader to implement the following flow:
 - Determine on onLoadFinished() in which Load State we are
 ![alt text](https://github.com/galex/double-loading-loaders/raw/master/double-loading-loaders.png "Double Loading Loaders Flow")
 ## Usage
+
 In your app module build.gradle add the dependency, published in jCenter:
 
 ```gradle
